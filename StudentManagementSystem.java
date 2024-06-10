@@ -93,7 +93,6 @@ public class StudentManagementSystem {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("students.dat"))) {
             students = (List<Student>) ois.readObject();
         } catch (FileNotFoundException e) {
-            // Ignore, file will be created when saving
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Error loading student data: " + e.getMessage());
         }
@@ -110,11 +109,7 @@ public class StudentManagementSystem {
         frame.setLayout(new BorderLayout());
 
         StudentManagementSystem sms = new StudentManagementSystem();
-
-        // Create the tabbed pane
         JTabbedPane tabbedPane = new JTabbedPane();
-
-        // Add Student Panel
         JPanel addPanel = new JPanel(new GridLayout(4, 2));
         JTextField nameField = new JTextField();
         JTextField rollNumberField = new JTextField();
@@ -132,7 +127,6 @@ public class StudentManagementSystem {
 
         tabbedPane.addTab("Add Student", addPanel);
 
-        // Remove Student Panel
         JPanel removePanel = new JPanel(new BorderLayout());
         JTextField removeField = new JTextField();
         JButton removeButton = new JButton("Remove Student");
@@ -140,38 +134,28 @@ public class StudentManagementSystem {
         removePanel.add(new JLabel("Roll Number:"), BorderLayout.NORTH);
         removePanel.add(removeField, BorderLayout.CENTER);
         removePanel.add(removeButton, BorderLayout.SOUTH);
-
         tabbedPane.addTab("Remove Student", removePanel);
 
-        // Search Student Panel
         JPanel searchPanel = new JPanel(new BorderLayout());
         JTextField searchField = new JTextField();
         JButton searchButton = new JButton("Search Student");
         JTextArea searchResultArea = new JTextArea();
         searchResultArea.setEditable(false);
-
         searchPanel.add(new JLabel("Roll Number:"), BorderLayout.NORTH);
         searchPanel.add(searchField, BorderLayout.CENTER);
         searchPanel.add(new JScrollPane(searchResultArea), BorderLayout.EAST);
         searchPanel.add(searchButton, BorderLayout.SOUTH);
-       
-
         tabbedPane.addTab("Search Student", searchPanel);
 
-        // Display All Students Panel
         JPanel displayPanel = new JPanel(new BorderLayout());
         JTextArea displayArea = new JTextArea();
         displayArea.setEditable(false);
         JButton displayButton = new JButton("Display All Students");
-
         displayPanel.add(new JScrollPane(displayArea), BorderLayout.CENTER);
         displayPanel.add(displayButton, BorderLayout.SOUTH);
-
         tabbedPane.addTab("Display All Students", displayPanel);
-
         frame.add(tabbedPane, BorderLayout.CENTER);
 
-        // Button actions
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
